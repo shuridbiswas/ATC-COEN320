@@ -12,17 +12,18 @@
 #include <fstream>
 #include <windows.h>
 #include <chrono>   
-
-
-
+#include <mutex>
 
 
 using namespace std;
 
 
 
-int maxS = 53;
-int test, co, re = 0;
+int maxS = 62;
+int a, b, c = 0;
+int timer = 0;
+
+mutex mtx;
 
 
 class Airplane { //airplane class
@@ -404,7 +405,7 @@ void deleteFromLog (Airplane& airplane, int x, int y, int z, int& timer, ofstrea
 			int z_hit = airplane.getZ();
 
 			if ((airplaneListId == id) && (x_hit == x) && (y_hit == y) && (z_hit == z)) {
-				file <<"Time: "<<timer<< "   "<<airplane.toString() <<" Left" <<endl;
+	//			file <<"Time: "<<timer<< "  "<<airplane.toString() <<" Left" <<endl;
 				Hit.erase(Hit.begin() + i);
 				break; // break from the loop when aircraft found in the list
 			}
@@ -441,7 +442,7 @@ void addToLog(Airplane& airplane, int x, int y, int z, int& timer, ofstream& fil
 		
 			if ((id < 0) && (x_hit != x) && (y_hit != y) && (z_hit != z)) { // means that lost object, still add into hit list because id can be the same
 				Hit.push_back(airplane);
-				detectLostObjects(airplane.getID(),timer,file);
+				detectLostObjects(airplane.getID(), timer, file);
 				break;
 			}
 			else if(airplaneListID == id){
@@ -454,7 +455,7 @@ void addToLog(Airplane& airplane, int x, int y, int z, int& timer, ofstream& fil
 		// it means it has looped through all of the list and that the aircraft doesn't exist in the list
 
 		if (counter == Hit.size()) {
-			file <<"Time: "<<timer<< "   "<<airplane.toString() <<" Entered" <<endl;
+		//	file <<"Time: "<<timer<< "  "<<airplane.toString() <<" Entered" <<endl;
 			Hit.push_back(airplane);
 
 		}
@@ -502,6 +503,7 @@ void history(ostream &file, int& timer) {
 
 	if (Hit.empty()) 
 	{
+
 		file << "Time: " << timer<<"  ";
 		file << " \t**The airspace is currently empty at this time**" << endl;
 
@@ -510,23 +512,55 @@ void history(ostream &file, int& timer) {
 	{
 		for (int i = 0; i < Hit.size(); i++)
 		{
-			if(Hit[i].id < 0){
-				break;
-			}
+
 			file << "Time: " << timer<<"  ";
 			file << Hit[i].toString()<<endl;
+
 		}
 		
 	}
 
 }
 
-void entry(vector<Airplane>& airplanelist, vector<Airplane>& tracklist, int& timer, ofstream& file) {
+int user(vector<Airplane>& tracklist, int& timer, ofstream& file) {\
+
+
+	int input, choice;
+	cout << "Operator Command?(Enter number)"<<"\n0. No"<<"\n1. Yes"<<endl;
 	
+	cin >> input;
+	
+	switch(input){
+		
+		case 0:
+		this_thread::sleep_for(chrono::seconds(1));
+		break;
+		
+		case 1:
+			cout<<" Pick an option(Enter number)"<<"\n1. Change position of a airplane\n2. Project the position of an airplane"<<
+			"\n3. Change altitude of a airplane\n4. Brodacast message to airspace\n5. Brodcast message to an airplane"<<endl;
+			cin >> choice;
+			break;		
+	}
+	
+	return 0;
+
+}
+
+void entry(vector<Airplane>& airplanelist, vector<Airplane>& tracklist, int& timer, ofstream& file, int input) {
 	timer++;
-	
+	a = 0;
+	b = 0;
+	c = 0;
+	int result;
 	// compare the counter to the release time of the aircraft
 	// If the counter is equal to the release time, then add to the list of aircraft 
+	if(timer > 0 && timer % input == 0){
+	mtx.lock();
+	result = user(tracklist,timer,file);
+	mtx.unlock();
+	}
+	
 
 	for (int i = 0; i < airplanelist.size(); i++)
 	{
@@ -574,16 +608,11 @@ void display(int& timer) {
 		if ((x > 100000 | x < 0) || (y > 100000 | y < 0) || (z > 25000 | z < 0)) { 
 			// don't display if out of airspace... do nothing
 		}
-		else {		
+		else {	
 			cout << "Time: " << timer<<"  ";
 			cout << Hit[i].toString()<<endl;
 		}
 	}
-	
-	
-	
-	
-
 }
 
 
@@ -594,19 +623,24 @@ void timer_log(function<void(ofstream&, int&)> func, ofstream& file, unsigned in
 	thread([func, &file, interval, &timer]() {
 		while (timer < maxS)
 		{
+			if(a == 1){
+			}
+			else if(timer % interval == 0 && timer > 0){
 			func(file, timer);
-			this_thread::sleep_for(chrono::seconds(interval));
+			a=1;
+		}
 		}
 	}).detach();
 }
 
 
-void timer_entry(function<void(vector<Airplane>&, vector<Airplane>& , int&, ofstream&)> func, vector<Airplane>& airplanelist, vector<Airplane>& tracklist, int& timer, unsigned int interval, ofstream& file)
+void timer_entry(function<void(vector<Airplane>&, vector<Airplane>& , int&, ofstream&, int)> func, vector<Airplane>& airplanelist, vector<Airplane>& tracklist, int& timer, unsigned int interval, ofstream& file, int input)
 {
-	thread([func, &airplanelist, &tracklist,&timer, interval,&file]() {
+	thread([func, &airplanelist, &tracklist,&timer, interval,&file,input]() {
 		while (timer < maxS)
 		{
-			func(airplanelist, tracklist, timer, file);
+			func(airplanelist, tracklist, timer, file, input);
+
 			this_thread::sleep_for(chrono::seconds(interval));
 		}
 	}).detach();
@@ -617,8 +651,14 @@ void timer_track(function<void(vector<Airplane>&, int&, ofstream&)> func, vector
 	thread([func, &tracklist, interval, &timer, &file]() {
 		while (timer < maxS)
 		{
+			if (b == 1){
+			}
+			else if(timer % interval == 0 && timer > 0){
 			func(tracklist,timer,file);
-			this_thread::sleep_for(chrono::seconds(interval));
+			b =1;
+		}
+
+			
 		}
 	}).detach();
 }
@@ -628,20 +668,30 @@ void timer_display(function<void(int&)> func, unsigned int interval,int& timer)
 	thread([func, interval, &timer]() {
 		while (true)
 		{
+			if(c == 1){
+			}
+			else if(timer % interval == 0 && timer > 0){
 			func(timer);
-			this_thread::sleep_for(chrono::seconds(interval));
+			c= 1;
+		}
+
 		}
 	}).detach();
 }
 
 
 
-void schedule(vector<Airplane>& airplanelist,vector<Airplane>& tracklist,ofstream& file,int& timer){
+
+void schedule(vector<Airplane>& airplanelist,vector<Airplane>& tracklist,ofstream& file,int& timer, int input){
 	
-		timer_entry(entry, airplanelist, tracklist, timer, 1, file);
+		timer_entry(entry, airplanelist, tracklist, timer, 1, file, input);
+		
 		timer_track(track, tracklist, 3, timer, file);
+		
 		timer_display(display, 5, timer);
 		timer_log(history, file, 15, timer);
+		
+		
 		
 
 
@@ -678,6 +728,7 @@ int main() { //vector airplane
 
 	vector<Airplane> tracklist; 
 	
+	int input;
 	auto timenow = chrono::system_clock::to_time_t(chrono::system_clock::now());
 
 //	cout << "Update:  " << ctime(&timenow) << endl;
@@ -688,11 +739,12 @@ int main() { //vector airplane
     file << "ATC: ON \nTime: "<<ctime(&timenow)<<" " << endl;
     cout<<"Initializing System..."<<endl;
     file<<"Initializing System..."<<endl;
+    
+    cout << "At what interval would you like to Command? (for never enter 300)"<<endl;
+    cin >> input;
+    
 
-
-
-	int timer = 0;
-	schedule(airplanelist, tracklist, file, timer);
+	schedule(airplanelist, tracklist, file, timer, input);
 	while(timer < maxS);
 	
 	this_thread::sleep_for(chrono::seconds(1));
