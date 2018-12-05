@@ -1,0 +1,14 @@
+ATC: ON 
+Time: Wed Dec 05 03:35:55 2018
+ 
+Initializing System...
+Time: 1   	**The airspace is currently empty at this time**
+Time: 15   	**The airspace is currently empty at this time**
+Time: 18    ID:  1	 X:  71000	 Y:  100000	 Z:  13000	 Speed X, Y, Z :  -223 ,  -630 ,  -526	 Entry:  16  Entered
+Time: 30   ID:  1	 X:  70108	 Y:  97480	 Z:  10896	 Speed X, Y, Z :  -223 ,  -630 ,  -526	 Entry:  16 
+Time: 33    ID:  -1	 X:  41000	 Y:  100000	 Z:  6000	 Speed X, Y, Z :  -180 ,  -446 ,  -186	 Entry:  31  Entered
+Time: 45   ID:  1	 X:  68993	 Y:  94330	 Z:  8266	 Speed X, Y, Z :  -223 ,  -630 ,  -526	 Entry:  16 
+Time: 45    ID:  3	 X:  38000	 Y:  0000	 Z:  14000	 Speed X, Y, Z :  474 ,  -239 ,  428	 Entry:  44  Entered
+ATC: OFF 
+Time: Wed Dec 05 03:35:55 2018
+ 
