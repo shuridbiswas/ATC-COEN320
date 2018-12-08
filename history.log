@@ -1,5 +1,8 @@
 ATC: ON 
-Time: Wed Dec 05 18:33:19 2018
+Time: Fri Dec 07 19:31:30 2018
  
 Initializing System...
-Time: 15   	**The airspace is currently empty at this time**
+Time: 20   ID:  1	 X:  70777	 Y:  99370	 Z:  12474	 Speed X, Y, Z :  -223 ,  -630 ,  -526	 Entry:  16 
+Time: 21   ID:  1	 X:  70554	 Y:  98740	 Z:  11948	 Speed X, Y, Z :  -223 ,  -630 ,  -526	 Entry:  16 
+Time: 40   ID:  1	 X:  69216	 Y:  94960	 Z:  8792	 Speed X, Y, Z :  -223 ,  -630 ,  -526	 Entry:  16 
+Time: 40   ID:  -1	 X:  40460	 Y:  98662	 Z:  5442	 Speed X, Y, Z :  -180 ,  -446 ,  -186	 Entry:  31 
