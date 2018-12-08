@@ -19,7 +19,7 @@ using namespace std;
 
 
 
-int maxS = 62;
+int maxS = 27;
 int a, b, c, d= 0;
 int timer = 0;
 
@@ -137,39 +137,6 @@ public: //define planes
 	string toString() { // passing to strings
 		string str;
 		
-		if(x==0){
-			str = " ID:  "+to_string(id) + "\t X:  " + to_string(x) + "000\t Y:  " + to_string(y) + "\t Z:  "
-			+ to_string(z) + "\t Speed X, Y, Z :  " + to_string(sx) + " ,  " + to_string(sy) + " ,  " +to_string(sz) + "\t Entry:  " + to_string(te) + " ";
-		return str;
-		}
-		
-		if(y==0){
-			str = " ID:  "+to_string(id) + "\t X:  " + to_string(x) + "\t Y:  " + to_string(y) + "000\t Z:  "
-			+ to_string(z) + "\t Speed X, Y, Z :  " + to_string(sx) + " ,  " + to_string(sy) + " ,  " +to_string(sz) + "\t Entry:  " + to_string(te) + " ";
-		return str;
-		}
-		if(z==0){
-			str = " ID:  "+to_string(id) + "\t X:  " + to_string(x) + "\t Y:  " + to_string(y) + "\t Z:  "
-			+ to_string(z) + "000\t Speed X, Y, Z :  " + to_string(sx) + " ,  " + to_string(sy) + " ,  " +to_string(sz) + "\t Entry:  " + to_string(te) + " ";
-		return str;
-		}
-		if(sx==0){
-			str = " ID:  "+to_string(id) + "\t X:  " + to_string(x) + "\t Y:  " + to_string(y) + "\t Z:  "
-			+ to_string(z) + "\t Speed X, Y, Z :  " + to_string(sx) + "000 ,  " + to_string(sy) + " ,  " +to_string(sz) + "\t Entry:  " + to_string(te) + " ";
-		return str;
-		}
-		
-		if(sy==0){
-			str = " ID:  "+to_string(id) + "\t X:  " + to_string(x) + "\t Y:  " + to_string(y) + "\t Z:  "
-			+ to_string(z) + "\t Speed X, Y, Z :  " + to_string(sx) + " ,  " + to_string(sy) + "000 ,  " +to_string(sz) + "\t Entry:  " + to_string(te) + " ";
-		return str;
-		}
-		
-		if(sy==0){
-			str = " ID:  "+to_string(id) + "\t X:  " + to_string(x) + "\t Y:  " + to_string(y) + "\t Z:  "
-			+ to_string(z) + "\t Speed X, Y, Z :  " + to_string(sx) + " ,  " + to_string(sy) + " ,  " +to_string(sz) + "000\t Entry:  " + to_string(te) + " ";
-		return str;
-		}
 		str = " ID:  "+to_string(id) + "\t X:  " + to_string(x) + "\t Y:  " + to_string(y) + "\t Z:  "
 				+ to_string(z) + "\t Speed X, Y, Z :  " + to_string(sx) + " ,  " + to_string(sy) + " ,  " +to_string(sz) + "\t Entry:  " + to_string(te) + " ";
 		return str;
@@ -182,6 +149,213 @@ public: //define planes
 vector<Airplane> Hit;
 
 
+/*
+
+void entry() {
+	while (*timer < maxS ) // entry point
+	{
+		string t;
+			if( test == 1){
+			}
+			else{
+		
+			for(int i =0; i<20; i++){
+				if( *timer == airplanes.at(i).te ){
+					if(airplanes.at(i).x < 100000 && airplanes.at(i).y < 100000 && airplanes.at(i).z < 25000 && airplanes.at(i).x > 0 && airplanes.at(i).y > 0 && airplanes.at(i).z > 0){
+						test = 1;
+
+					}
+					if(airplanes.at(i).x > 100000 || airplanes.at(i).y > 100000 || airplanes.at(i).z > 25000){
+						test = 1;
+						enter.push_back(airplanes.at(i).id);
+						object.push_back(airplanes.at(i));
+					}
+					else{
+					cout<< *timer << "s\t"<<airplanes.at(i).toString() << "sec\t\t has entered."<<endl;
+			//	cout<<" Enter next command"<<endl;
+			//	cin >> t;
+					enter.push_back(airplanes.at(i).id);
+					test = 1;
+					}
+				}
+			}
+
+			}
+	}
+
+}
+
+
+void crash(){
+
+	int crashXYZ;
+	int t;
+	int temp;
+	for(size_t i =0; i < enter.size(); i++){
+		for(size_t j = i + 1; j < enter.size(); j++){
+			crashXYZ = sqrt(pow((airplanes.at(i).x - airplanes.at(j).x), 2) + pow((airplanes.at(i).y - airplanes.at(j).y), 2)+ pow((airplanes.at(i).z - airplanes.at(j).z), 2));
+			if (crashXYZ <= 5000) {
+				cout<< "\n !! Near crash between ID " << airplanes.at(i).id << " and ID " << airplanes.at(j).id <<" BECAREFUL !!" <<endl;
+					cout<<" Enter next command"
+							"\n  1. Change Position of X for ID "<< airplanes.at(i).id<<
+							"\n  2. Change Position of Y for ID "<< airplanes.at(i).id<<
+							"\n  3. Change Position of Z for ID "<< airplanes.at(i).id<<
+							"\n  4. Change Position of X for ID "<< airplanes.at(j).id<<
+							"\n  5. Change Position of Y for ID "<< airplanes.at(j).id<<
+							"\n  6. Change Position of Z for ID "<< airplanes.at(j).id<<
+							""<<endl;
+					cin >> t;
+
+					switch(t){
+					case 1 : cout<<"Enter the value of X"<<endl;
+							 cin >> temp;
+							 airplanes.at(i).setX(temp);
+							 break;
+					case 2 : cout<<"Enter the value of Y"<<endl;
+							 cin >> temp;
+							 airplanes.at(i).setY(temp);
+							 break;
+					case 3 : cout<<"Enter the value of Z"<<endl;
+							 cin >> temp;
+							 airplanes.at(i).setZ(temp);
+							 break;
+					case 4 : cout<<"Enter the value of X"<<endl;
+							 cin >> temp;
+							 airplanes.at(j).setX(temp);
+							 break;
+					case 5 : cout<<"Enter the value of Y"<<endl;
+							 cin >> temp;
+							 airplanes.at(j).setY(temp);
+							 break;
+					case 6 : cout<<"Enter the value of Z"<<endl;
+							 cin >> temp;
+							 airplanes.at(j).setZ(temp);
+							 break;
+
+
+					}
+
+			}
+
+		}
+	}
+
+}
+
+void airspace(){
+	while (*timer < maxS ) // entry point
+	{
+		int temp;
+			if( co == 1){
+			}
+			else {
+			m.lock();
+			for(size_t i = 0; i < enter.size(); i++){
+
+					temp = 1 * airplanes.at(i).sx + airplanes.at(i).x;
+					if(temp <= 0)
+						temp = 0;
+					airplanes.at(i).setX(temp);
+					temp = 1 * airplanes.at(i).sy + airplanes.at(i).y;
+					if(temp <= 0)
+						temp = 0;
+					airplanes.at(i).setY(temp);
+					temp = 1 * airplanes.at(i).sz + airplanes.at(i).z;
+					if(temp <= 0)
+						temp = 0;
+					airplanes.at(i).setZ(temp);
+
+					if(airplanes.at(i).x > 100000 || airplanes.at(i).y > 100000 || airplanes.at(i).z > 25000){
+						co = 1;
+
+					}
+					else{
+					cout<< *timer << "s\t"<<airplanes.at(i).toString() << "sec\t\t has updated."<<endl;
+					crash((void *)&arg);
+			//	cout<<" Enter next command"<<endl;
+			//	cin >> t;
+					}
+					//to code speed * time + position = new position
+					co = 1;
+
+				}
+
+			m.unlock();
+			}
+
+	}
+
+
+}
+
+
+void display(){
+	while (*timer < maxS ) // entry point
+	{
+		int temp;
+			if( re == 1){
+			}
+			else {
+			m.lock();
+			if(*timer % 5 == 0){
+			for(size_t i = 0; i < enter.size(); i++){
+				if(i == 0 )
+					cout<< "\n\t\t\t\t\t\t\t\t\t\t\t\t  Display View: \n";
+
+				if(airplanes.at(i).x > 100000 || airplanes.at(i).y > 100000 || airplanes.at(i).z > 25000){
+					re = 1;
+				}
+				else{
+				cout << "\t\t\t\t\t\t\t\t\t\t\t\t   ID: "<<airplanes.at(i).id<<"  \t X: "<<airplanes.at(i).x<<"  \t Y: "<<airplanes.at(i).y<<"  \t Z: "<<airplanes.at(i).z << endl;
+
+ 				}
+					re = 1;
+
+				}
+
+			}
+
+			if(*timer % 15 == 0){
+			for(size_t i = 0; i < object.size(); i++){
+				cout << "\t\t\t\t\t\t\t\t\t\t\t\t  OBJECT: "<<object.at(i).id<<" \t X: "<<object.at(i).x<<"\t Y: "<<object.at(i).y<<"\t Z: "<<object.at(i).z << endl;
+				re = 1;
+				}
+			re = 1;
+			}
+
+			m.unlock();
+			}
+
+	}
+
+
+}
+
+
+
+
+
+
+void timer() { // timer thread
+// save the seco argument into local variable second.
+	int second = 0;
+
+	while(second < maxS){
+	std::this_thread::sleep_for (std::chrono::seconds(1));
+	m.lock();
+	test = 0;
+	co = 0;
+	re = 0;
+	second = second + 1; //increment second by 1 after sleep
+	test = second;
+	timer = &second;
+	m.unlock();
+
+	}
+
+}
+
+*/
 
 void updateLog(Airplane& airplane) {
 
@@ -322,7 +496,6 @@ void history(ostream &file, int& timer) {
 	{
 		for (int i = 0; i < Hit.size(); i++)
 		{
-			
 
 			file << "Time: " << timer<<"  ";
 			file << Hit[i].toString()<<endl;
@@ -333,130 +506,25 @@ void history(ostream &file, int& timer) {
 
 }
 
-void changealt(vector<Airplane>& tracklist){
-	int id, alt, j, pos;
+void changealt(){
+	int id, alt;
 	cout << "enter the Airplane ID" << endl;
 	cin >> id;
 	
 	for( int i =0; i < Hit.size(); i++) {
 		if(id == Hit[i].getID()){
-			for(j =0; j < 20; j++){
-				if(id == tracklist[j].getID()){
-					pos = j;
-				}
-			}
 			cout << " enter altitude " << endl;
 			cin >> alt;
 			Hit[i].setSz(alt);
-			tracklist[pos].setSz(alt);
-			aircraftMovement(tracklist[pos]);
 		}
 	}
 }
-
-
-void changepos(vector<Airplane>& tracklist){
-	int id, inx,iny, pos, j;
-	cout << "enter the Airplane ID" << endl;
-	cin >> id;
-	
-	for( int i =0; i < Hit.size(); i++) {
-		if(id == Hit[i].getID()){
-			for(j =0; j < 20; j++){
-				if(id == tracklist[j].getID()){
-					pos = j;
-				}
-			}
-			cout << " enter X speed" << endl;
-			cin >> inx;
-			cout << " enter Y speed" << endl;
-			cin >> iny;
-			Hit[i].setSx(inx);
-			Hit[i].setSy(iny);
-			tracklist[pos].setSx(inx);
-			tracklist[pos].setSy(iny);		
-			aircraftMovement(tracklist[pos]);
-		}
-	}
-}
-
-
-void projectposition(int& timer){
-	int id, time, pos ,speedx, speedy;
-	cout << "enter the Airplane ID" << endl;
-	cin >> id;
-	
-	int xpos, ypos, resx,resy; 
-	
-	for( int i =0; i < Hit.size(); i++) {
-		if(id == Hit[i].getID()){
-			cout << "enter projected time " << endl;
-			cin >> time;
-			cout << "enter speed X" << endl;
-			cin >> speedx;
-			cout << "enter speed Y" << endl;
-			cin >> speedy;
-			
-			xpos = Hit[i].getX();
-			ypos = Hit[i].getY();
-			
-			resx = xpos + (time*speedx);
-			resx = ypos + (time*speedy);
-			
-			cout<<"Projected Position\nTime: "<<timer+time<<" ID: "<<Hit[i].getID()<<"\tX: "<<resx<<"\t Y: "<<resy<<"\t Z: "<<Hit[i].getZ()<<
-			"\t Speed X, Y, Z: "<<speedx<<" , "<<speedy<<" , "<<Hit[i].getSz()<<"\t Entry Time: "<<Hit[i].getTe()<<endl;
-			cout<<"*Projected Position was not applied"<<endl;
-			
-
-		}
-	}
-}
-
-
-void brodcastairspace(){
-	string str;
-	cout<<"What is your message?\n"<<endl;
-	cin.ignore();
-	getline(cin,str);
-	cout<<"Attention! "<< str <<endl;
-	cout<<"Message was sent to: "<<endl;
-	for (int i = 0; i < Hit.size(); i++)
-	{
-		int id = Hit[i].getID(); 
-		int x = Hit[i].getX();
-		int y = Hit[i].getY();
-		int z = Hit[i].getZ();
-
-
-		if ((x > 100000 | x < 0) || (y > 100000 | y < 0) || (z > 25000 | z < 0)) { 
-			// don't display if out of airspace... do nothing
-		}
-		else {	
-			cout <<"ID: "<<id<<" ";
-		}
-	}
-	cout<<""<<endl;
-}
-
-
-void brodcastairplane(int id){
-	string str;
-	cout<<"What is your message?\n"<<endl;
-	cin.ignore();
-	getline(cin,str);
-	cout<<"Attention! "<< str <<endl;
-	cout<<"Message was sent to: "<< id <<endl;
-	cout<<""<<endl;
-}
-
 
 int user(vector<Airplane>& tracklist, int& timer, ofstream& file) {
 
 
 	int input, choice;
-	string str;
-	this_thread::sleep_for(chrono::seconds(2));
-	cout << "\nOperator Command?(Enter number)"<<"\n0. No"<<"\n1. Yes\n"<<endl;
+	cout << "Operator Command?(Enter number)"<<"\n0. No"<<"\n1. Yes"<<endl;
 	
 	cin >> input;
 	
@@ -473,26 +541,23 @@ int user(vector<Airplane>& tracklist, int& timer, ofstream& file) {
 			switch(choice){
 				
 				case 1:
-					changepos(tracklist);
+			//		changepos();
 					break;
 					
 				case 2:
-					projectposition(timer);
+			//		projectposition();
 					break;
 				
 				case 3:
-					changealt(tracklist);
+					changealt();
 					break;
 				
 				case 4:
-					brodcastairspace();
+			//		brodcastairspace();
 					break;
 					
 				case 5:
-						int id;
-						cout<< "enter the airplane ID: "<<endl;
-						cin >> id;
-					brodcastairplane(id);
+			//		brodcastairplane();
 					break;
 					
 			}
@@ -514,7 +579,6 @@ void entry(vector<Airplane>& airplanelist, vector<Airplane>& tracklist, int& tim
 	mtx.lock();
 	result = user(tracklist,timer,file);
 	mtx.unlock();
-
 	}
 	
 	timer++;
@@ -552,6 +616,7 @@ void display(int& timer) {
 	if(Hit.empty() && timer > 7){
 		cout << "Time: " << timer<<"  ";
 		cout << " \t**The airspace is currently empty at this time**" << endl;
+		
 	}
 
 	for (int i = 0; i < Hit.size(); i++)
@@ -572,27 +637,20 @@ void display(int& timer) {
 	}
 }
 
-void collisionAvoidance(vector<Airplane>& tracklist) {
+void collisionAvoidance() {
 
 	// Compare each aircraft together from the hit least to detect collisions
-	int id,ok,q,pos;
+
 	int size = Hit.size();
 
 	for (int i = 0; i < size-1; i++)
 	{
-		ok = 0;
 		int x_a1 = Hit[i].getX();
 		int y_a1 = Hit[i].getY();    
 		int z_a1 = Hit[i].getZ();
 
 		for (int j = size-1; j > i; j--)
 		{
-			id = Hit[i].getID();
-			for(pos =0; pos < 20; pos++){
-				if(id == tracklist[q].getID()){
-					q = pos;
-				}
-			}
 			int x_a2 = Hit[j].getX();
 			int y_a2 = Hit[j].getY();
 			int z_a2 = Hit[j].getZ();
@@ -601,8 +659,7 @@ void collisionAvoidance(vector<Airplane>& tracklist) {
 			int y_difference = abs(y_a1 - y_a2);
 			int z_difference = abs(z_a1 - z_a2);
 
-			
-			if ((z_difference <= 1000) && (x_difference <= 3000) && (y_difference <= 3000) && ok==1) 
+			if ((z_difference <= 1000) && (x_difference <= 3000) && (y_difference <= 3000)) 
 			{	
 				int speed_x = Hit[j].getSx();
 				int speed_y = Hit[j].getSy();
@@ -610,21 +667,18 @@ void collisionAvoidance(vector<Airplane>& tracklist) {
 				// Make the plane go to the opposite direction to avoid collision
 
 				if (speed_x != 0){
-					cout<<"Increase X Speed of ID: " << Hit[j].getID() << " to avoid collision with ID: " << Hit[i].getID() <<endl;
-					Hit[j].setSx(speed_x + 600);
-					tracklist[q].setSx(speed_x + 600);
+					cout<<"Decreasing X Speed of ID: " << Hit[j].getID() << " to avoid collision with ID: " << Hit[i].getID() <<endl;
+					Hit[j].setSx(speed_x + 500);
+					
 				}
 				else{
 					cout<<"Decreasing Y Speed of ID: " << Hit[j].getID() << " to avoid collision with ID: " << Hit[i].getID() <<endl;
-					Hit[j].setSy(speed_y + 600);
-					tracklist[q].setSy(speed_y + 600);
+					Hit[j].setSy(speed_y + 500);
+				
 				}
-				aircraftMovement(tracklist[q]);
-				break;
+					
 			}
-			
 		}
-		
 	}
 }
 
@@ -692,15 +746,15 @@ void timer_display(function<void(int&)> func, unsigned int interval,int& timer)
 	}).detach();
 }
 
-void timer_col(function<void(vector<Airplane>&)> func, unsigned int interval, int& timer, vector<Airplane>& tracklist) {
+void timer_col(function<void()> func, unsigned int interval, int& timer) {
 
-	thread([func, interval, &timer, &tracklist]() {
+	thread([func, interval, timer]() {
 		while (true)
 		{
 			if( d == 1){
 			}
 			else if(timer % interval == 0 && timer > 0){
-			func(tracklist);
+			func();
 			this_thread::sleep_for(chrono::seconds(interval));
 		}
 		}
@@ -715,8 +769,8 @@ void schedule(vector<Airplane>& airplanelist,vector<Airplane>& tracklist,ofstrea
 		timer_entry(entry, airplanelist, tracklist, timer, 1, file, input);
 		timer_track(track, tracklist, 3, timer, file);
 		timer_display(display, 5, timer);
-		timer_log(history, file, 20, timer);
-		timer_col(collisionAvoidance, 1, timer, tracklist);
+		timer_log(history, file, 25, timer);
+//		timer_col(collisionAvoidance, 1, timer);
 
 
 }
@@ -727,9 +781,11 @@ int main() { //vector airplane
 
 	Airplane a1(0, -641, 283, 500, 95000, 101589, 10000, 13);
 	Airplane a2(1, -223, -630, -526, 71000, 100000, 13000, 16);
-	Airplane a3(-1, -180, -446, -186, 41000, 100000, 6000, 31);
-	Airplane a4(3, 474, -239, 428, 38000, 0, 14000, 44);
-	Airplane a5(-1, -535, 520, 360, 95000, 100000, 1000, 49);
+	Airplane a3(-1, -180, -446, -186, 41000, 100000, 6000, 18);
+	Airplane a4(3, 474, -239, 428, 38000, 0, 14000, 21);
+	Airplane a5(-1, -535, 520, 360, 95000, 100000, 1000, 24);
+	
+	
 	Airplane a6(-1, -164, -593, -501, 83000, 100000, 12000, 67);
 	Airplane a7(6, 512, 614, 520, 86000, -1571, 9000, 87);
 	Airplane a8(7, -275, 153, -399, 47000, 100000, 12000, 103);
@@ -773,7 +829,6 @@ int main() { //vector airplane
 	timenow = chrono::system_clock::to_time_t(chrono::system_clock::now());
 	cout << "ATC: OFF \nTime: "<<ctime(&timenow)<<" " << endl;
 	file << "ATC: OFF \nTime: "<<ctime(&timenow)<<" " << endl;
-	
 	file.close();
 
 	return 0;

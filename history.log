@@ -1,8 +1,10 @@
 ATC: ON 
-Time: Fri Dec 07 19:31:30 2018
+Time: Thu Dec 06 13:24:38 2018
  
 Initializing System...
-Time: 20   ID:  1	 X:  70777	 Y:  99370	 Z:  12474	 Speed X, Y, Z :  -223 ,  -630 ,  -526	 Entry:  16 
-Time: 21   ID:  1	 X:  70554	 Y:  98740	 Z:  11948	 Speed X, Y, Z :  -223 ,  -630 ,  -526	 Entry:  16 
-Time: 40   ID:  1	 X:  69216	 Y:  94960	 Z:  8792	 Speed X, Y, Z :  -223 ,  -630 ,  -526	 Entry:  16 
-Time: 40   ID:  -1	 X:  40460	 Y:  98662	 Z:  5442	 Speed X, Y, Z :  -180 ,  -446 ,  -186	 Entry:  31 
+Time: 25   ID:  1	 X:  70554	 Y:  98740	 Z:  11948	 Speed X, Y, Z :  -223 ,  -630 ,  -800	 Entry:  16 
+Time: 25   ID:  -1	 X:  94465	 Y:  100520	 Z:  1360	 Speed X, Y, Z :  -180 ,  -446 ,  -186	 Entry:  18 
+Time: 25   ID:  3	 X:  38948	 Y:  0	 Z:  14856	 Speed X, Y, Z :  474 ,  -239 ,  428	 Entry:  21 
+ATC: OFF 
+Time: Thu Dec 06 13:25:30 2018
+ 
